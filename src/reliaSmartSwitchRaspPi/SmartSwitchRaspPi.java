@@ -14,6 +14,11 @@ public class SmartSwitchRaspPi {
 		int Cnt=0;
 		String httpGetReturn;
 		System.out.println("Starting ...");
+		
+		SmartSwitchGPIO SSGPIO = new SmartSwitchGPIO();
+		SSGPIO.GPIOInit();
+		
+		
 		while (true)
 			{
 			System.out.println("Loop " + Cnt);
@@ -21,13 +26,16 @@ public class SmartSwitchRaspPi {
 			httpGetReturn = httpGet();
 			System.out.println("httpGet " + httpGetReturn);
 			SmartSwitchSystemInfo.readSystemInfo();
+			
+			SSGPIO.GPIOTest();
+			
 			Thread.sleep(3000);
 			}
 
 	}
 	
 	public static String httpGet() throws IOException {
-		  URL url = new URL("http://localhost:8080/reliaSmartSwitchWebServer/services/SwitchIf");
+		  URL url = new URL("http://Thomass-iMac:8080/reliaSmartSwitchWebServer/services/SwitchIf");
 		  HttpURLConnection conn =
 		      (HttpURLConnection) url.openConnection();
 
